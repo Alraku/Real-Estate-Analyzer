@@ -64,7 +64,7 @@ class HTMLFinder(HTMLParser):
 
 
     def save_data(self):
-        with open('output.html', 'w') as file:
+        with open('output/output.html', 'w') as file:
             for item in self.final_table:
                 file.write(item.strip().replace('\n', '').replace('\t', ''))
                 file.write('\n')

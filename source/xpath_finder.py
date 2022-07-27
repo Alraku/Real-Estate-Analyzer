@@ -2,7 +2,7 @@ from io import StringIO
 from lxml import html
 
 
-file_path = "output.html"
+file_path = "output/output.html"
 
 class XpathFinder():
 

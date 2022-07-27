@@ -29,11 +29,11 @@ def main():
         list.append(dict)
      
     
-    with open('result.json', 'w', encoding='utf8') as file:
+    with open('output/result.json', 'w', encoding='utf8') as file:
         json.dump(list, file, ensure_ascii=False)
 
     prices = [int(dict['price']) for dict in list if 'price' in dict]
-    print(sum(prices) / len(list))
+    print(round(sum(prices) / len(list)))
     
 
 
