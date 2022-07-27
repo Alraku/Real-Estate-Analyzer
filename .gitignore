@@ -131,6 +131,7 @@ dmypy.json
 # MacOS X files
 .DS_Store
 
+# My own
 .html
 .json
-
+.vscode
