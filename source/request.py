@@ -9,9 +9,9 @@ HEADERS = {
     }
 
 
-def make_request(url):
+def make_request(URL: str) -> str:
     try:
-        request = Request(url, headers=HEADERS)
+        request = Request(URL, headers=HEADERS)
         response = urlopen(request)
         html_response = response.read().decode("utf-8")
         return html_response
