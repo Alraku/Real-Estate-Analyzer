@@ -1,5 +1,7 @@
-from io import StringIO
+import json
+
 from lxml import html
+from io import StringIO
 
 
 file_path = "output/output.html"
@@ -18,11 +20,24 @@ class XpathFinder():
         self.tree = html.parse(StringIO(source_html), HTML_parser)
 
 
-    def find_by_xpath(self, xpath):
-        for i in self.tree.xpath(xpath):
-            yield i
+    def find_by_xpath(self, values_to_find) -> None:
+        output_list = list()
+        for key, value in values_to_find.items():
+            xpath_finder = self.tree.xpath(value)
+            for index, item in enumerate(xpath_finder):
+                if index >= len(output_list):
+                    output_list.append({
+                            key: xpath_finder[index]
+                            })
+                else:
+                    output_list[index].update({
+                            key: xpath_finder[index]
+                        })
+
+        self.save_to_json(output_list)
 
 
-# XP = XpathFinder()
-# for i in XP.find_by_xpath("//p[@class='price']/strong/text()"):
-#     print(i)
+    @classmethod
+    def save_to_json(cls, output_list) -> None:
+        with open('output/result.json', 'w', encoding='utf8') as file:
+            json.dump(output_list, file, ensure_ascii=False)
