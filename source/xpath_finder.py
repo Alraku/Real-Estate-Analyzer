@@ -37,7 +37,17 @@ class XpathFinder():
         self.save_to_json(output_list)
 
 
+    def next_page(self, xpath) -> bool:
+        if len(self.tree.xpath(xpath)) == 0: 
+            return False
+        else: return True
+
+
     @classmethod
     def save_to_json(cls, output_list) -> None:
         with open('output/result.json', 'w', encoding='utf8') as file:
             json.dump(output_list, file, ensure_ascii=False)
+
+
+XP = XpathFinder()
+print(XP.next_page('//spaxd'))

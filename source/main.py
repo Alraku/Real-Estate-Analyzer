@@ -18,6 +18,11 @@ def main():
     }
 
     XpathFinder().find_by_xpath(values_to_find)
+
+    next_page = XpathFinder.next_page({'//some/xpath.mark'})
+    if next_page is not None:
+        next_page = response.urljoin(next_page)
+        yield scrapy.Request(next_page, callback=self.parse)
     
 
 if __name__ == "__main__":
