@@ -1,5 +1,5 @@
 from typing import List
-from exceptions import NegativeValueError
+from source.exceptions import NegativeValueError
 
 
 def average(values: List[int | float]) -> int:
