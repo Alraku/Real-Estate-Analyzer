@@ -1,7 +1,9 @@
 import json
+import re
 
 from lxml import html
 from io import StringIO
+from source.request import make_request
 
 
 file_path = "output/output.html"
@@ -17,7 +19,9 @@ class XpathFinder():
         # Define an HTML parser object
         # Create a logical XML tree from the contents of parser_04
         HTML_parser = html.HTMLParser()
-        self.tree = html.parse(StringIO(source_html), HTML_parser)
+        response = make_request('https://www.olx.pl/sport-hobby/rowery/rowery-gorskie/q-marlin-5/')
+        #self.tree = html.parse(StringIO(source_html), HTML_parser)
+        self.tree = html.parse(StringIO(response), HTML_parser)
 
 
     def find_by_xpath(self, values_to_find) -> None:
@@ -38,9 +42,9 @@ class XpathFinder():
 
 
     def next_page(self, xpath) -> bool:
-        if len(self.tree.xpath(xpath)) == 0: 
-            return False
-        else: return True
+        response = self.tree.xpath(xpath)
+        if len(response) != 0:
+            return True
 
 
     @classmethod
@@ -50,4 +54,6 @@ class XpathFinder():
 
 
 XP = XpathFinder()
-print(XP.next_page('//spaxd'))
+xd = XP.next_page('//a[@data-cy="page-link-next"]')
+
+print(xd)
