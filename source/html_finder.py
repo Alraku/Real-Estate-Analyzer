@@ -36,7 +36,7 @@ class HTMLFinder(HTMLParser):
 
         # Jeśli TAG jest tym który szukamy, sprawdź atrybuty, jeśli pasuje to zacznij nagrywać
         for name, value in attributes:
-            if value == self.tag_to_find[1]:
+            if self.tag_to_find[1] in value.split(' '):
                 self.recording = 1
                 return
                 
@@ -47,7 +47,7 @@ class HTMLFinder(HTMLParser):
             if self.recording != 0:
                 self.data += "</%s>" % (tag,)
             elif self.recording == 0:
-                self.data += "</%s>" % (tag,)
+                # self.data += "</%s>" % (tag,) # zmiana 02.08.2022
                 self.final_table.append(self.data)
                 self.data = ''
             
@@ -74,12 +74,16 @@ class HTMLFinder(HTMLParser):
         return self.final_table
 
 
-# data left for future tests?
-#linksparser.feed('<div class="test"><span itemprop="description"><h1>My First Heading</h1><p>My first <br/><br/>paragraph.</p></span></div>')
 
-
-linkparser = HTMLFinder(('div', 'xdd'))
-
-linkparser.feed('<div class="test"><span itemprop="description"><div class="xdd hey"><h1>My First Heading</h1></div><p>My first <br/><br/>paragraph.</p></span></div>')
-
+linkparser = HTMLFinder(('div', 'hey'))
+linkparser.feed('<div class="test"><span itemprop="description"><div class="hey xdd"><h1>My First Heading</h1></div><p>My first <br/><br/>paragraph.</p></span></div>')
 print(linkparser.get_data())
+
+
+linkparser = HTMLFinder(('div', 'test'))
+linkparser.feed('<div class="test"><span itemprop="description"><h1>My First Heading</h1><p>My first <br/><br/>paragraph.</p></span></div>')
+print(linkparser.get_data())
+
+#TODO
+# 1. trzeba zaimplementować w 38 linijce splita jakiegoś aby rozrózniał wiele klas
+# 2. trzeba przetestować raz jeszcze dokładniej przypadek w 83. poniewaz zwraca niepoprawnie.
