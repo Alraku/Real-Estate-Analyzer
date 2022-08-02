@@ -76,4 +76,10 @@ class HTMLFinder(HTMLParser):
 
 # data left for future tests?
 #linksparser.feed('<div class="test"><span itemprop="description"><h1>My First Heading</h1><p>My first <br/><br/>paragraph.</p></span></div>')
-#linksparser.feed('<div class="test"><span itemprop="description"><div class="xdd"><h1>My First Heading</h1></div><p>My first <br/><br/>paragraph.</p></span></div>')
+
+
+linkparser = HTMLFinder(('div', 'xdd'))
+
+linkparser.feed('<div class="test"><span itemprop="description"><div class="xdd hey"><h1>My First Heading</h1></div><p>My first <br/><br/>paragraph.</p></span></div>')
+
+print(linkparser.get_data())

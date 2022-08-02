@@ -3,9 +3,9 @@ from html_finder import HTMLFinder
 from xpath_finder import XpathFinder
 
 
-URL = 'https://www.olx.pl/sport-hobby/rowery/rowery-gorskie/q-marlin-7/'
+def scrap_data():
 
-def main():
+    URL = 'https://www.olx.pl/sport-hobby/rowery/rowery-gorskie/q-marlin-7/'
 
     finder = HTMLFinder(('div', 'offer-wrapper'))
     finder.feed(make_request(URL))
@@ -19,14 +19,14 @@ def main():
 
     XpathFinder().find_by_xpath(values_to_find)
 
-    next_page = XpathFinder.next_page({'//some/xpath.mark'})
+    next_page = XpathFinder.next_page({'//a[@class="pageNextPrev"]'})
     if next_page is not None:
         next_page = response.urljoin(next_page)
         yield scrapy.Request(next_page, callback=self.parse)
     
 
 if __name__ == "__main__":
-    main()
+    scrap_data()
 
 
 
