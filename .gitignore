@@ -136,3 +136,4 @@ output/
 .vscode
 .html
 .json
+test.py
