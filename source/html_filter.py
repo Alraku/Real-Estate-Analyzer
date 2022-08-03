@@ -1,8 +1,8 @@
-from html.parser import HTMLParser
 from typing import Tuple
+from html.parser import HTMLParser
 
 
-class HTMLFinder(HTMLParser):
+class HTMLFilter(HTMLParser):
     def __init__(self, tag_to_find: Tuple[str, str]) -> None:
         HTMLParser.__init__(self)
         self.recording = 0
@@ -72,18 +72,3 @@ class HTMLFinder(HTMLParser):
 
     def get_data(self):
         return self.final_table
-
-
-
-linkparser = HTMLFinder(('div', 'hey'))
-linkparser.feed('<div class="test"><span itemprop="description"><div class="hey xdd"><h1>My First Heading</h1></div><p>My first <br/><br/>paragraph.</p></span></div>')
-print(linkparser.get_data())
-
-
-linkparser = HTMLFinder(('div', 'test'))
-linkparser.feed('<div class="test"><span itemprop="description"><h1>My First Heading</h1><p>My first <br/><br/>paragraph.</p></span></div>')
-print(linkparser.get_data())
-
-#TODO
-# 1. trzeba zaimplementować w 38 linijce splita jakiegoś aby rozrózniał wiele klas
-# 2. trzeba przetestować raz jeszcze dokładniej przypadek w 83. poniewaz zwraca niepoprawnie.
